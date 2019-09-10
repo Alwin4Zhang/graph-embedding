@@ -55,3 +55,9 @@ def alias_sample(accept, alias):
         return i
     else:
         return alias[i]
+
+
+# area_ratio = [1 / 6, 2 / 6, 1 / 6, 1 / 6, 2 / 6]
+# accept, alias = create_alias_table(area_ratio)
+# print(accept)
+# print(alias)
