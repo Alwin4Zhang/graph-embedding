@@ -9,6 +9,7 @@
 from .walker import RandomWalker
 from gensim.models import Word2Vec
 import pandas as pd
+import logging
 
 
 class DeepWalk(object):
@@ -22,6 +23,7 @@ class DeepWalk(object):
             walk_length=walk_length,
             workers=workers,
             verbose=1)
+        print('sentences generate successed!!!')
 
     def train(self, embed_size=128, window_size=5, workers=3, iter=5, **kwargs):
         kwargs['sentences'] = self.sentences
@@ -31,12 +33,14 @@ class DeepWalk(object):
         kwargs['hs'] = 1  # deepwalk use Hierarchical softmax
         kwargs['workers'] = workers
         kwargs['window'] = window_size
-        kwargs['iter'] = iter
+        kwargs['iter'] = iter 
         print('Learning embedding vectors...')
+        logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
         model = Word2Vec(**kwargs)
         print('Learning embedding vectors done!')
 
         self.w2v_model = model
+        model.save('w2v_kg_v1.model')
         return model
 
     def get_embeddings(self, ):

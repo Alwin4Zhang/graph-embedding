@@ -14,6 +14,8 @@ import tensorflow as tf
 from tensorflow.python.keras import backend as K
 from tensorflow.python.keras.layers import Embedding, Input, Lambda
 from tensorflow.python.keras.models import Model
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 from .alias import create_alias_table, alias_sample
 from .utils import preprocess_nxgraph
@@ -86,13 +88,11 @@ class LINE:
 
     def reset_training_config(self, batch_size, times):
         self.batch_size = batch_size
-        self.steps_per_epoch = (
-                                       (self.samples_per_epoch - 1) // self.batch_size + 1) * times
+        self.steps_per_epoch = ((self.samples_per_epoch - 1) // self.batch_size + 1) * times
 
     def reset_model(self, opt='adam'):
 
-        self.model, self.embedding_dict = create_model(
-            self.node_size, self.rep_size, self.order)
+        self.model, self.embedding_dict = create_model(self.node_size, self.rep_size, self.order)
         self.model.compile(opt, line_loss)
         self.batch_it = self.batch_iter(self.node2idx)
 
