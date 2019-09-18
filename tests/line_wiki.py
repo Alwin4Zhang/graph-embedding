@@ -21,7 +21,7 @@ from pprint import pprint
 
 def evaluate_embeddings(embeddings):
     data_path = join_path(dirname(dirname(__file__)), 'data/bello_kg/graph_labels_last_version.txt')
-    # data_path = join_path(dirname(dirname(__file__)), 'data/bello_kg/graph_labels_v1.1.txt')
+    data_path = join_path(dirname(dirname(__file__)), 'data/bello_kg/graph_labels_v1.1.txt')
     X, Y = read_node_label(data_path)
     tr_frac = 0.8
     print("Training classifier using {:.2f}% nodes...".format(
@@ -32,7 +32,7 @@ def evaluate_embeddings(embeddings):
 
 def plot_embeddings(embeddings, ):
     data_path = join_path(dirname(dirname(__file__)), 'data/bello_kg/graph_labels_last_version.txt')
-    # data_path = join_path(dirname(dirname(__file__)), 'data/bello_kg/graph_labels_v1.1.txt')
+    data_path = join_path(dirname(dirname(__file__)), 'data/bello_kg/graph_labels_v1.1.txt')
     X, Y = read_node_label(data_path)
 
     emb_list = []
@@ -56,8 +56,8 @@ def plot_embeddings(embeddings, ):
 
 if __name__ == "__main__":
     data_path = join_path(dirname(dirname(__file__)), 'data/bello_kg/last_version_edgelist.txt')
-    G = nx.read_edgelist(data_path,
-                         create_using=nx.DiGraph(), nodetype=None, data=[('weight', int)])
+    data_path = join_path(dirname(dirname(__file__)), 'data/bello_kg/kg_v1.1_edgelist.txt')
+    G = nx.read_edgelist(data_path,create_using=nx.DiGraph(), nodetype=None, data=[('weight', int)])
     pprint(G.edges(data=True))
     model = LINE(G, embedding_size=128, order='second')
     model.train(batch_size=1024, epochs=50, verbose=2)
@@ -65,3 +65,12 @@ if __name__ == "__main__":
 
     evaluate_embeddings(embeddings)
     plot_embeddings(embeddings)
+
+# 
+'''
+last_version:
+{'micro': 0.6171967020023557, 'macro': 0.4355327706776056, 'samples': 0.6171967020023557, 'weighted': 0.59992785838697, 'acc': 0.6171967020023557}
+
+this_version:
+{'micro': 0.6360424028268551, 'macro': 0.3988717152207253, 'samples': 0.6360424028268551, 'weighted': 0.6092845279395479, 'acc': 0.6360424028268551}
+'''

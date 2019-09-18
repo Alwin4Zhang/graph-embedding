@@ -28,13 +28,13 @@ class Node2Vec(object):
             verbose=1
         )
 
-        self.sentences = list(filter(lambda x:len(x) > 5,self.sentences))
+        self.sentences = list(filter(lambda x:len(x) > 3,self.sentences))
         with open('sentences.txt', 'w+') as f:
             sentences = [','.join([str(node) for node in sentence]) for sentence in self.sentences]
             f.write('\n'.join(sentences))
             print('sentence generate all done!!!')
 
-    def train(self, embed_size=64, window_size=5, workers=3, iter=5, filename='last_version', **kwargs):
+    def train(self, embed_size=128, window_size=5, workers=3, iter=5, filename='last_version', **kwargs):
         kwargs["sentences"] = self.sentences
         kwargs["min_count"] = kwargs.get("min_count", 0)
         kwargs["size"] = embed_size 

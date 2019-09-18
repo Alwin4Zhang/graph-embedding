@@ -15,6 +15,7 @@ from tqdm import tqdm
 from .alias import create_alias_table
 from .utils import partition_dict, preprocess_nxgraph
 from .walker import BiasedWalker
+import logging
 
 
 class Struc2Vec():
@@ -94,6 +95,7 @@ class Struc2Vec():
         sentences = self.sentences
 
         print("Learning representation...")
+        logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
         model = Word2Vec(sentences, size=embed_size, window=window_size, min_count=0, hs=1, sg=1, workers=workers,
                          iter=iter)
         print("Learning representation done!")

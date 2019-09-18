@@ -53,7 +53,7 @@ if __name__ == "__main__":
                          data=[('weight', int)])
     print('Graph generate successed!!!')
     pprint(G.edges(data=True))
-    model = Struc2Vec(G, 10, 80, workers=4, verbose=40, )
+    model = Struc2Vec(G, 10, 80, workers=2, verbose=40, )
     model.train()
     embeddings = model.get_embeddings()
 
